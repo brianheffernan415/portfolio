@@ -18,7 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   --r:12px;
 }
 .app{max-width:1100px;margin:0 auto;padding:20px 16px}
-h1{font-size:20px;font-weight:700;margin-bottom:3px}
+h1{font-size:20px;font-weight:700;margin-bottom:3px;letter-spacing:-.3px}
 .sub{font-size:12px;color:var(--muted);margin-bottom:20px}
 .tabs{display:flex;gap:3px;background:var(--surf);border-radius:10px;padding:4px;margin-bottom:20px;border:1px solid var(--bdr)}
 .tab{flex:1;padding:8px 4px;border:none;background:transparent;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);transition:all .15s}
@@ -32,7 +32,7 @@ h1{font-size:20px;font-weight:700;margin-bottom:3px}
 .stats{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .stat{padding:11px 13px;background:var(--surf2);border-radius:9px;border:1px solid var(--bdr)}
 .sv{font-size:17px;font-weight:700;margin-bottom:2px}
-.sl{font-size:10px;color:var(--muted)}
+.sl{font-size:10px;color:var(--muted);letter-spacing:.03em}
 .cg{color:var(--green)}.ca{color:var(--amber)}.cc{color:var(--coral)}
 .ms-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .ms{flex:1;min-width:130px;background:var(--surf);border-radius:10px;padding:13px;border:1px solid var(--bdr)}
@@ -65,12 +65,12 @@ th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05
 td{padding:8px 11px;font-size:12px;border-bottom:1px solid var(--bdr);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,.025)}
-.tkr{font-weight:700;font-size:13px}
+.tkr{font-weight:700;font-size:13px;letter-spacing:.04em}
 .nc{font-size:11px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis}
 .rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:10px;font-weight:700;border:1px solid var(--bdr2);color:var(--muted)}
 .r1{background:rgba(239,159,39,.2);color:var(--amber);border-color:rgba(239,159,39,.4)}
-.r2{background:rgba(200,200,200,.1);color:#bbb}
-.r3{background:rgba(160,110,60,.12);color:#b8814a}
+.r2{background:rgba(200,200,200,.1);color:#bbb;border-color:rgba(200,200,200,.25)}
+.r3{background:rgba(160,110,60,.12);color:#b8814a;border-color:rgba(160,110,60,.3)}
 .editable{cursor:pointer;border-bottom:1px dashed var(--bdr2);padding-bottom:1px}
 .editable:hover{border-bottom-color:var(--gm);color:var(--gm)}
 .ei{background:var(--surf2);border:1px solid var(--gm);border-radius:5px;color:var(--text);font-size:12px;padding:2px 6px;outline:none;width:100%}
@@ -150,6 +150,7 @@ tr:hover td{background:rgba(255,255,255,.025)}
   <button class="tab" onclick="setTab('optimizer')">🎯 Optimizer</button>
   <button class="tab" onclick="setTab('alerts')">Alerts</button>
 </div>
+
 <div id="tab-dashboard">
   <div class="hero">
     <div class="ring-wrap">
@@ -173,6 +174,7 @@ tr:hover td{background:rgba(255,255,255,.025)}
   <div id="ms-row" class="ms-row"></div>
   <div id="d-al"></div>
 </div>
+
 <div id="tab-portfolio" style="display:none">
   <div id="pstatus" class="sb" style="display:none"></div>
   <div style="height:3px;background:var(--bdr);border-radius:2px;margin-bottom:10px;overflow:hidden"><div id="price-bar"></div></div>
@@ -201,6 +203,7 @@ tr:hover td{background:rgba(255,255,255,.025)}
     <div id="h-empty" class="empty" style="display:none">No holdings yet.</div>
   </div></div>
 </div>
+
 <div id="tab-expenses" style="display:none">
   <div class="ib2">💡 Click any name or amount to edit it directly.</div>
   <div class="sh">
@@ -209,19 +212,38 @@ tr:hover td{background:rgba(255,255,255,.025)}
   </div>
   <div class="card"><div id="exp-list"></div><div id="exp-empty" class="empty" style="display:none">No expenses yet.</div></div>
 </div>
+
 <div id="tab-optimizer" style="display:none">
   <div class="opt-hero">
-    <div class="opt-card"><h4>Current monthly income</h4><div class="big cg" id="opt-cur-inc">$0</div><div class="sm" id="opt-cur-yld">0% blended yield</div></div>
-    <div class="opt-card"><h4>Near-term target</h4><div class="big ca">$478<span style="font-size:14px">/mo</span></div><div class="sm">Groceries + utilities covered</div></div>
-    <div class="opt-card"><h4>Final boss 🏆</h4><div class="big ca">$1,761<span style="font-size:14px">/mo</span></div><div class="sm">Full coverage incl. rent</div></div>
+    <div class="opt-card">
+      <h4>Current monthly income</h4>
+      <div class="big cg" id="opt-cur-inc">$0</div>
+      <div class="sm" id="opt-cur-yld">0% blended yield</div>
+    </div>
+    <div class="opt-card">
+      <h4>Near-term target</h4>
+      <div class="big ca">$478<span style="font-size:14px">/mo</span></div>
+      <div class="sm">Groceries + utilities covered</div>
+    </div>
+    <div class="opt-card">
+      <h4>Final boss 🏆</h4>
+      <div class="big ca">$1,761<span style="font-size:14px">/mo</span></div>
+      <div class="sm">Full coverage incl. rent</div>
+    </div>
   </div>
   <div class="sh"><span class="st">⚠️ Opportunity cost flags</span></div>
   <div class="card"><div id="opt-flags"></div></div>
   <div class="sh"><span class="st">Strategy comparison</span></div>
   <div class="strat-tabs">
-    <div class="strat-tab active" id="strat-aggressive" onclick="setStrat('aggressive')"><div class="st-icon">🔥</div><div class="st-name">Aggressive income</div><div class="st-desc">High yield, some volatility</div></div>
-    <div class="strat-tab" id="strat-balanced" onclick="setStrat('balanced')"><div class="st-icon">⚖️</div><div class="st-name">Balanced</div><div class="st-desc">Growth + income mix</div></div>
-    <div class="strat-tab" id="strat-conservative" onclick="setStrat('conservative')"><div class="st-icon">🛡️</div><div class="st-name">Conservative</div><div class="st-desc">Lower yield, rock solid</div></div>
+    <div class="strat-tab active" id="strat-aggressive" onclick="setStrat('aggressive')">
+      <div class="st-icon">🔥</div><div class="st-name">Aggressive income</div><div class="st-desc">High yield, some volatility</div>
+    </div>
+    <div class="strat-tab" id="strat-balanced" onclick="setStrat('balanced')">
+      <div class="st-icon">⚖️</div><div class="st-name">Balanced</div><div class="st-desc">Growth + income mix</div>
+    </div>
+    <div class="strat-tab" id="strat-conservative" onclick="setStrat('conservative')">
+      <div class="st-icon">🛡️</div><div class="st-name">Conservative</div><div class="st-desc">Lower yield, rock solid</div>
+    </div>
   </div>
   <div class="cmp-grid">
     <div class="cmp-col current"><h4>Your current portfolio</h4><div id="cmp-current"></div></div>
@@ -230,60 +252,104 @@ tr:hover td{background:rgba(255,255,255,.025)}
   <div class="sh"><span class="st">🗺️ Income roadmap — deploying your $10k cash</span></div>
   <div class="card"><div id="opt-roadmap"></div></div>
 </div>
+
 <div id="tab-alerts" style="display:none">
-  <div class="sh"><span class="st">Planned moves & alerts</span><button class="btn btn-sm btn-p" onclick="openModal('alert')">+ Add</button></div>
+  <div class="sh">
+    <span class="st">Planned moves & alerts</span>
+    <button class="btn btn-sm btn-p" onclick="openModal('alert')">+ Add</button>
+  </div>
   <div class="card"><div id="alert-list"></div><div id="alert-empty" class="empty" style="display:none">No alerts yet.</div></div>
 </div>
+
 <div id="modal" class="mo" style="display:none" onclick="if(event.target===this)closeModal()">
   <div class="md"><h3 id="modal-title"></h3><div id="modal-body"></div>
     <div class="mbtns"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-p" onclick="submitModal()">Save</button></div>
   </div>
 </div>
 </div>
+
 <script>
-const API_KEY='PDiKiu7hGOg4V1byA5sr8DwKQ5giWIyc';
-const DEFAULTS=[
-  {id:1,ticker:'GS',name:'Goldman Sachs',shares:0.3342,avgCost:784.77,price:null,divYield:1.4},
-  {id:2,ticker:'NVDA',name:'NVIDIA',shares:2.251988,avgCost:86.71,price:null,divYield:0.47},
-  {id:3,ticker:'USO',name:'US Oil Fund',shares:3,avgCost:109.60,price:null,divYield:0},
-  {id:4,ticker:'GLNG',name:'Golar LNG',shares:5.462032,avgCost:45.67,price:null,divYield:2.02},
-  {id:5,ticker:'JNJ',name:'Johnson & Johnson',shares:0.975359,avgCost:199.94,price:null,divYield:2.35},
-  {id:6,ticker:'DXJ',name:'WisdomTree Japan Hedged',shares:1.096809,avgCost:164.11,price:null,divYield:1.17},
-  {id:7,ticker:'JPM',name:'JPMorgan Chase',shares:0.494788,avgCost:307.63,price:null,divYield:1.81},
-  {id:8,ticker:'VDE',name:'Vanguard Energy ETF',shares:1.012141,avgCost:123.96,price:null,divYield:2.47},
-  {id:9,ticker:'TMFC',name:'Motley Fool 100 ETF',shares:2.010855,avgCost:44.88,price:null,divYield:0.14},
-  {id:10,ticker:'AMZN',name:'Amazon',shares:0.596062,avgCost:228.16,price:null,divYield:0},
-  {id:11,ticker:'DAL',name:'Delta Air Lines',shares:1.544598,avgCost:41.31,price:null,divYield:0},
-  {id:12,ticker:'VONG',name:'Vanguard Russell 1000 Gr.',shares:1.012423,avgCost:78.42,price:null,divYield:0.44},
-  {id:13,ticker:'SGOL',name:'abrdn Physical Gold ETF',shares:3,avgCost:27.14,price:null,divYield:0},
-  {id:14,ticker:'INFL',name:'Horizon Kinetics Inflation',shares:2.101414,avgCost:52.41,price:null,divYield:0.62},
-  {id:15,ticker:'JGRO',name:'JPMorgan Active Growth ETF',shares:1.002769,avgCost:61.20,price:null,divYield:0.3},
-  {id:16,ticker:'XAR',name:'SPDR Aerospace & Defense',shares:0.282731,avgCost:233.65,price:null,divYield:0.38},
-  {id:17,ticker:'MRK',name:'Merck',shares:0.58511,avgCost:97.93,price:null,divYield:3.0},
-  {id:18,ticker:'MPLX',name:'MPLX LP',shares:1.059892,avgCost:51.41,price:null,divYield:7.57},
-  {id:19,ticker:'JEPI',name:'JPMorgan Equity Premium',shares:1.082741,avgCost:56.92,price:null,divYield:8.17},
-  {id:20,ticker:'DHT',name:'DHT Holdings',shares:2.779782,avgCost:18.04,price:null,divYield:5.35},
-  {id:21,ticker:'SNDK',name:'Sandisk Corporation',shares:0.027203,avgCost:2021.84,price:null,divYield:0},
-  {id:22,ticker:'USCI',name:'US Commodity Index Fund',shares:0.486554,avgCost:78.10,price:null,divYield:0},
-  {id:23,ticker:'ICAGY',name:'Intl Airlines Group',shares:3,avgCost:10.18,price:null,divYield:0},
-  {id:24,ticker:'SRTY',name:'ProShares Short Russell 2k',shares:2.107035,avgCost:16.75,price:null,divYield:0},
-  {id:25,ticker:'MA',name:'Mastercard',shares:0.049694,avgCost:565.86,price:null,divYield:0.55},
-  {id:26,ticker:'COKE',name:'Coca-Cola Consolidated',shares:0.12201,avgCost:115.48,price:null,divYield:0.5},
-  {id:27,ticker:'SOXL',name:'Direxion Semi Bull 3x ETF',shares:1.08309,avgCost:229.38,price:null,divYield:0.5},
-  {id:28,ticker:'MSFT',name:'Microsoft',shares:0.055121,avgCost:510.69,price:null,divYield:0.98},
-  {id:29,ticker:'SHW',name:'Sherwin-Williams',shares:0.041151,avgCost:342.40,price:null,divYield:0.85},
-  {id:30,ticker:'AMPS',name:'TEMA Electrification ETF',shares:0.269366,avgCost:40.84,price:null,divYield:0},
-  {id:31,ticker:'DTCR',name:'GlobalX Data Center ETF',shares:0.190330,avgCost:31.52,price:null,divYield:1.2},
-  {id:32,ticker:'MU',name:'Micron Technology',shares:0.004178,avgCost:1196.74,price:null,divYield:0.05},
-  {id:33,ticker:'IDGT',name:'iShares Digital Infra ETF',shares:0.008134,avgCost:122.94,price:null,divYield:0.5},
-  {id:34,ticker:'GRID',name:'First Trust Smart Grid ETF',shares:0.005235,avgCost:191.02,price:null,divYield:0.5},
-  {id:35,ticker:'PSUS',name:'Pershing Square USA',shares:0.025926,avgCost:38.57,price:null,divYield:0},
+const API_KEY = 'PDiKiu7hGOg4V1byA5sr8DwKQ5giWIyc';
+
+const DEFAULTS = [
+  {id:1, ticker:'GS',   name:'Goldman Sachs',             shares:0.3342,    avgCost:784.77,  price:null, divYield:1.4},
+  {id:2, ticker:'NVDA', name:'NVIDIA',                    shares:2.251988,  avgCost:86.71,   price:null, divYield:0.47},
+  {id:3, ticker:'USO',  name:'US Oil Fund',               shares:3,         avgCost:109.60,  price:null, divYield:0},
+  {id:4, ticker:'GLNG', name:'Golar LNG',                 shares:5.462032,  avgCost:45.67,   price:null, divYield:2.02},
+  {id:5, ticker:'JNJ',  name:'Johnson & Johnson',         shares:0.975359,  avgCost:199.94,  price:null, divYield:2.35},
+  {id:6, ticker:'DXJ',  name:'WisdomTree Japan Hedged',   shares:1.096809,  avgCost:164.11,  price:null, divYield:1.17},
+  {id:7, ticker:'JPM',  name:'JPMorgan Chase',            shares:0.494788,  avgCost:307.63,  price:null, divYield:1.81},
+  {id:8, ticker:'VDE',  name:'Vanguard Energy ETF',       shares:1.012141,  avgCost:123.96,  price:null, divYield:2.47},
+  {id:9, ticker:'TMFC', name:'Motley Fool 100 ETF',       shares:2.010855,  avgCost:44.88,   price:null, divYield:0.14},
+  {id:10,ticker:'AMZN', name:'Amazon',                    shares:0.596062,  avgCost:228.16,  price:null, divYield:0},
+  {id:11,ticker:'DAL',  name:'Delta Air Lines',           shares:1.544598,  avgCost:41.31,   price:null, divYield:0},
+  {id:12,ticker:'VONG', name:'Vanguard Russell 1000 Gr.', shares:1.012423,  avgCost:78.42,   price:null, divYield:0.44},
+  {id:13,ticker:'SGOL', name:'abrdn Physical Gold ETF',   shares:3,         avgCost:27.14,   price:null, divYield:0},
+  {id:14,ticker:'INFL', name:'Horizon Kinetics Inflation',shares:2.101414,  avgCost:52.41,   price:null, divYield:0.62},
+  {id:15,ticker:'JGRO', name:'JPMorgan Active Growth ETF',shares:1.002769,  avgCost:61.20,   price:null, divYield:0.3},
+  {id:16,ticker:'XAR',  name:'SPDR Aerospace & Defense',  shares:0.282731,  avgCost:233.65,  price:null, divYield:0.38},
+  {id:17,ticker:'MRK',  name:'Merck',                     shares:0.58511,   avgCost:97.93,   price:null, divYield:3.0},
+  {id:18,ticker:'MPLX', name:'MPLX LP',                   shares:1.059892,  avgCost:51.41,   price:null, divYield:7.57},
+  {id:19,ticker:'JEPI', name:'JPMorgan Equity Premium',   shares:1.082741,  avgCost:56.92,   price:null, divYield:8.17},
+  {id:20,ticker:'DHT',  name:'DHT Holdings',              shares:2.779782,  avgCost:18.04,   price:null, divYield:5.35},
+  {id:21,ticker:'SNDK', name:'Sandisk Corporation',       shares:0.027203,  avgCost:2021.84, price:null, divYield:0},
+  {id:22,ticker:'USCI', name:'US Commodity Index Fund',   shares:0.486554,  avgCost:78.10,   price:null, divYield:0},
+  {id:23,ticker:'ICAGY',name:'Intl Airlines Group',       shares:3,         avgCost:10.18,   price:null, divYield:0},
+  {id:24,ticker:'SRTY', name:'ProShares Short Russell 2k',shares:2.107035,  avgCost:16.75,   price:null, divYield:0},
+  {id:25,ticker:'MA',   name:'Mastercard',                shares:0.049694,  avgCost:565.86,  price:null, divYield:0.55},
+  {id:26,ticker:'COKE', name:'Coca-Cola Consolidated',    shares:0.12201,   avgCost:115.48,  price:null, divYield:0.5},
+  {id:27,ticker:'SOXL', name:'Direxion Semi Bull 3x ETF', shares:1.08309,   avgCost:229.38,  price:null, divYield:0.5},
+  {id:28,ticker:'MSFT', name:'Microsoft',                 shares:0.055121,  avgCost:510.69,  price:null, divYield:0.98},
+  {id:29,ticker:'SHW',  name:'Sherwin-Williams',          shares:0.041151,  avgCost:342.40,  price:null, divYield:0.85},
+  {id:30,ticker:'AMPS', name:'TEMA Electrification ETF',  shares:0.269366,  avgCost:40.84,   price:null, divYield:0},
+  {id:31,ticker:'DTCR', name:'GlobalX Data Center ETF',   shares:0.190330,  avgCost:31.52,   price:null, divYield:1.2},
+  {id:32,ticker:'MU',   name:'Micron Technology',         shares:0.004178,  avgCost:1196.74, price:null, divYield:0.05},
+  {id:33,ticker:'IDGT', name:'iShares Digital Infra ETF', shares:0.008134,  avgCost:122.94,  price:null, divYield:0.5},
+  {id:34,ticker:'GRID', name:'First Trust Smart Grid ETF',shares:0.005235,  avgCost:191.02,  price:null, divYield:0.5},
+  {id:35,ticker:'PSUS', name:'Pershing Square USA',       shares:0.025926,  avgCost:38.57,   price:null, divYield:0},
 ];
-let sortMode='default',stratMode='aggressive',S;
-try{const sv=localStorage.getItem('pt_v3');if(sv){S=JSON.parse(sv);sortMode=S.sortMode||'default';stratMode=S.stratMode||'aggressive';const ids=new Set(S.holdings.map(h=>h.id));DEFAULTS.forEach(h=>{if(!ids.has(h.id))S.holdings.push({...h});});}else{S={holdings:DEFAULTS.map(h=>({...h})),expenses:[{id:1,name:'Groceries',amount:348,icon:'🛒'},{id:2,name:'Electricity',amount:60,icon:'⚡'},{id:3,name:'Gas',amount:70,icon:'🔥'},{id:4,name:'Rent',amount:1283,icon:'🏠'}],alerts:[],nextId:100};}}catch(e){S={holdings:DEFAULTS.map(h=>({...h})),expenses:[],alerts:[],nextId:100};}
+
+let sortMode='default', stratMode='aggressive';
+let S;
+try {
+  const saved=localStorage.getItem('pt_v3');
+  if(saved){
+    S=JSON.parse(saved);
+    sortMode=S.sortMode||'default';
+    stratMode=S.stratMode||'aggressive';
+    const ids=new Set(S.holdings.map(h=>h.id));
+    DEFAULTS.forEach(h=>{if(!ids.has(h.id))S.holdings.push({...h});});
+  } else {
+    S={
+      holdings:DEFAULTS.map(h=>({...h})),
+      expenses:[
+        {id:1,name:'Groceries',amount:348,icon:'🛒'},
+        {id:2,name:'Electricity',amount:60,icon:'⚡'},
+        {id:3,name:'Gas',amount:70,icon:'🔥'},
+        {id:4,name:'Rent',amount:1283,icon:'🏠'},
+      ],
+      alerts:[],
+      nextId:100
+    };
+  }
+} catch(e){
+  S={holdings:DEFAULTS.map(h=>({...h})),expenses:[],alerts:[],nextId:100};
+}
 function save(){try{localStorage.setItem('pt_v3',JSON.stringify({...S,sortMode,stratMode}));}catch(e){}}
+
 const TABS=['dashboard','portfolio','expenses','optimizer','alerts'];
-function setTab(t){TABS.forEach((n,i)=>{document.getElementById('tab-'+n).style.display=n===t?'':'none';document.querySelectorAll('.tab')[i].classList.toggle('active',n===t);});if(t==='dashboard')renderDash();if(t==='portfolio')renderPortfolio();if(t==='expenses')renderExpenses();if(t==='optimizer')renderOptimizer();if(t==='alerts')renderAlerts();}
+function setTab(t){
+  TABS.forEach((n,i)=>{
+    document.getElementById('tab-'+n).style.display=n===t?'':'none';
+    document.querySelectorAll('.tab')[i].classList.toggle('active',n===t);
+  });
+  if(t==='dashboard')renderDash();
+  if(t==='portfolio')renderPortfolio();
+  if(t==='expenses')renderExpenses();
+  if(t==='optimizer')renderOptimizer();
+  if(t==='alerts')renderAlerts();
+}
+
 const hVal=h=>(h.price||h.avgCost)*h.shares;
 const hInc=h=>hVal(h)*(h.divYield/100);
 const hGain=h=>h.price?((h.price-h.avgCost)/h.avgCost*100):0;
@@ -292,31 +358,335 @@ const pValue=()=>S.holdings.reduce((s,h)=>s+hVal(h),0);
 const tExp=()=>S.expenses.reduce((s,e)=>s+e.amount,0);
 const cov=()=>{const e=tExp();return e?Math.min(100,(mIncome()/e)*100):0;};
 const f$=(n,d=2)=>'$'+Number(n).toFixed(d);
-function getSorted(){const a=[...S.holdings];if(sortMode==='value')return a.sort((a,b)=>hVal(b)-hVal(a));if(sortMode==='income')return a.sort((a,b)=>hInc(b)-hInc(a));if(sortMode==='yield')return a.sort((a,b)=>b.divYield-a.divYield);if(sortMode==='gain')return a.sort((a,b)=>hGain(b)-hGain(a));if(sortMode==='ticker')return a.sort((a,b)=>a.ticker.localeCompare(b.ticker));return a;}
-function setSort(m){sortMode=m;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));document.getElementById('chip-'+m)?.classList.add('active');save();renderPortfolio();}
-function renderDash(){const inc=mIncome(),exp=tExp(),pv=pValue(),cv=cov();const circ=2*Math.PI*45;setTimeout(()=>{document.getElementById('ring-arc').style.strokeDashoffset=(circ-(cv/100)*circ).toFixed(1);},80);document.getElementById('d-cov').textContent=cv.toFixed(1)+'%';document.getElementById('d-inc').textContent=f$(inc);document.getElementById('d-exp').textContent=f$(exp,0);const gap=exp-inc;const gel=document.getElementById('d-gap');gel.textContent=gap>0?f$(gap):'Fully covered!';gel.className='sv '+(gap<=0?'cg':'cc');document.getElementById('d-pv').textContent=f$(pv);document.getElementById('d-yld').textContent=pv>0?((inc*12/pv)*100).toFixed(2)+'%':'0%';const groceries=S.expenses.find(e=>e.name.toLowerCase().includes('gro'))?.amount||348;const utils=(S.expenses.find(e=>e.name.toLowerCase().includes('elec'))?.amount||0)+(S.expenses.find(e=>e.name.toLowerCase().includes('gas'))?.amount||0);const rent=S.expenses.find(e=>e.name.toLowerCase().includes('rent'))?.amount||1283;const milestones=[{name:'Groceries',target:groceries,boss:false},{name:'Utilities',target:utils,boss:false},{name:'Rent',target:rent,boss:true}];let nextMs=null;document.getElementById('ms-row').innerHTML=milestones.map(m=>{const pct=Math.min(100,(inc/m.target)*100),done=pct>=100;if(!done&&!nextMs)nextMs=m.name;return `<div class="ms${done?' done':''}${m.boss?' boss':''}"><div class="ms-lbl">${done?'✓ Covered':m.boss?'Final boss 🏆':'In progress'}</div><div class="ms-name">${m.name}</div><div class="bar-bg"><div class="bar-fill${m.boss?' boss':''}" style="width:${pct.toFixed(1)}%"></div></div><div class="ms-num">${f$(inc)} / ${f$(m.target,0)}/mo · ${pct.toFixed(0)}%</div></div>`;}).join('');document.getElementById('d-next').textContent=nextMs||'All covered 🎉';const triggered=S.alerts.filter(a=>{const h=S.holdings.find(h=>h.ticker===a.ticker);return h&&h.price&&(a.cond==='below'?h.price<=a.price:h.price>=a.price);});document.getElementById('d-al').innerHTML=triggered.length?`<div class="sh"><span class="st" style="color:var(--coral)">⚡ Alerts triggered</span></div><div class="card">${triggered.map(a=>`<div class="ar"><div class="dot dr"></div><strong>${a.ticker}</strong> is ${a.cond} $${a.price}${a.note?' — '+a.note:''}</div>`).join('')}</div>`:'';}
-function renderPortfolio(){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));document.getElementById('chip-'+sortMode)?.classList.add('active');const pv=pValue();document.getElementById('h-cnt').textContent=S.holdings.length;document.getElementById('h-tot').textContent=f$(pv);const body=document.getElementById('h-body'),empty=document.getElementById('h-empty');if(!S.holdings.length){body.innerHTML='';empty.style.display='';return;}empty.style.display='none';const sorted=getSorted();const maxInc=Math.max(...sorted.map(hInc),0.01);body.innerHTML=sorted.map((h,i)=>{const val=hVal(h),ann=hInc(h),gain=h.price?hGain(h):null;const rc=i===0?'r1':i===1?'r2':i===2?'r3':'';const bw=Math.round((ann/maxInc)*42);return `<tr><td><span class="rank ${rc}">${i+1}</span></td><td><span class="tkr editable" onclick="editF(${h.id},'ticker',this)">${h.ticker}</span></td><td><span class="nc editable" onclick="editF(${h.id},'name',this)">${h.name||'—'}</span></td><td><span class="editable" onclick="editF(${h.id},'shares',this)">${h.shares.toFixed(4)}</span></td><td><span class="editable" onclick="editF(${h.id},'avgCost',this)">${f$(h.avgCost)}</span></td><td>${h.price?f$(h.price):`<span class="editable nd" onclick="editF(${h.id},'price',this)">— enter</span>`}</td><td><strong>${f$(val)}</strong></td><td>${gain!==null?`<span class="pill ${gain>=0?'pg':'pr'}">${gain>=0?'+':''}${gain.toFixed(1)}%</span>`:'<span class="nd">—</span>'}</td><td><span class="editable" onclick="editF(${h.id},'divYield',this)">${h.divYield}%</span></td><td>${ann>0?`<span class="cg">${f$(ann)}</span><span class="ib"><span class="if" style="width:${bw}px"></span></span>`:'<span class="nd">—</span>'}</td><td><button class="btn-del" onclick="delH(${h.id})">✕</button></td></tr>`;}).join('');}
-function editF(id,field,el){if(el.querySelector('input'))return;const h=S.holdings.find(h=>h.id===id);const cur=field==='divYield'?h.divYield:field==='shares'?h.shares:field==='avgCost'?h.avgCost:field==='price'?(h.price||''):(h[field]||'');const inp=document.createElement('input');inp.className='ei';inp.value=String(cur).replace(/^\$/,'');inp.style.width=Math.max(70,el.offsetWidth+18)+'px';el.innerHTML='';el.appendChild(inp);inp.focus();inp.select();const commit=()=>{const v=inp.value.trim();if(field==='shares')h.shares=parseFloat(v)||h.shares;else if(field==='avgCost')h.avgCost=parseFloat(v)||h.avgCost;else if(field==='divYield')h.divYield=parseFloat(v)||0;else if(field==='price')h.price=parseFloat(v)||null;else h[field]=v||h[field];save();renderPortfolio();renderDash();};inp.addEventListener('blur',commit);inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();inp.blur();}if(e.key==='Escape')renderPortfolio();});}
-async function fetchPrice(tk){try{const r=await fetch(`https://financialmodelingprep.com/api/v3/quote-short/${tk}?apikey=${API_KEY}`);if(!r.ok)return null;const d=await r.json();if(d&&d[0]&&d[0].price>0)return d[0].price;}catch(e){}return null;}
-async function refreshPrices(){const status=document.getElementById('pstatus'),bar=document.getElementById('price-bar');status.style.display='';const tickers=[...new Set(S.holdings.map(h=>h.ticker))];let fetched=0,failed=[];for(let i=0;i<tickers.length;i++){const tk=tickers[i];bar.style.width=((i/tickers.length)*100)+'%';status.textContent=`Fetching ${tk}… (${i+1}/${tickers.length})`;const p=await fetchPrice(tk);if(p){S.holdings.filter(h=>h.ticker===tk).forEach(h=>h.price=p);fetched++;}else failed.push(tk);}bar.style.width='100%';setTimeout(()=>{bar.style.width='0';},1200);save();renderPortfolio();renderDash();const t=new Date().toLocaleTimeString();status.innerHTML=fetched>0?`✅ Updated <strong>${fetched}</strong> prices at ${t}${failed.length?' · No data for: '+failed.join(', ')':''}`:`⚠️ Could not fetch prices. Check internet connection.`;}
-function renderExpenses(){const list=document.getElementById('exp-list'),empty=document.getElementById('exp-empty');const total=tExp();document.getElementById('exp-tot').textContent=f$(total,0);if(!S.expenses.length){list.innerHTML='';empty.style.display='';return;}empty.style.display='none';list.innerHTML=S.expenses.map(e=>`<div class="er"><span style="font-size:16px;width:26px;text-align:center;flex-shrink:0">${e.icon||'💰'}</span><span style="flex:1;font-weight:600" class="editable" onclick="editExp(${e.id},'name',this)">${e.name}</span><div class="ebb"><div class="ebf" style="width:${total?(e.amount/total*100):0}%"></div></div><span class="editable" onclick="editExp(${e.id},'amount',this)" style="min-width:72px;text-align:right;font-weight:700">${f$(e.amount,0)}/mo</span><button class="btn-del" onclick="delE(${e.id})">✕</button></div>`).join('');}
-function editExp(id,field,el){if(el.querySelector('input'))return;const e=S.expenses.find(e=>e.id===id);const inp=document.createElement('input');inp.className='ei';inp.value=field==='amount'?e.amount:e.name;inp.style.width=Math.max(90,el.offsetWidth+18)+'px';el.innerHTML='';el.appendChild(inp);inp.focus();inp.select();const commit=()=>{if(field==='amount')e.amount=parseFloat(inp.value)||e.amount;else e.name=inp.value.trim()||e.name;save();renderExpenses();renderDash();};inp.addEventListener('blur',commit);inp.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();inp.blur();}if(ev.key==='Escape')renderExpenses();});}
-const STRATS={aggressive:{name:'Aggressive income',picks:[{ticker:'JEPI',alloc:25,yield:8.17},{ticker:'MPLX',alloc:20,yield:7.57},{ticker:'DHT',alloc:10,yield:9.4},{ticker:'GLNG',alloc:10,yield:2.02},{ticker:'VDE',alloc:10,yield:2.47},{ticker:'MRK',alloc:10,yield:3.0},{ticker:'JNJ',alloc:8,yield:2.35},{ticker:'SCHD',alloc:7,yield:3.8}],blendedYield:5.9},balanced:{name:'Balanced',picks:[{ticker:'SCHD',alloc:20,yield:3.8},{ticker:'JEPI',alloc:15,yield:8.17},{ticker:'VTI',alloc:15,yield:1.3},{ticker:'MPLX',alloc:12,yield:7.57},{ticker:'JNJ',alloc:10,yield:2.35},{ticker:'MSFT',alloc:10,yield:0.98},{ticker:'VDE',alloc:8,yield:2.47},{ticker:'MRK',alloc:10,yield:3.0}],blendedYield:3.8},conservative:{name:'Conservative',picks:[{ticker:'SCHD',alloc:30,yield:3.8},{ticker:'JNJ',alloc:15,yield:2.35},{ticker:'VTI',alloc:15,yield:1.3},{ticker:'MRK',alloc:12,yield:3.0},{ticker:'JPM',alloc:10,yield:1.81},{ticker:'MSFT',alloc:10,yield:0.98},{ticker:'VDE',alloc:8,yield:2.47}],blendedYield:2.4}};
-const FLAGS=[{ticker:'SRTY',icon:'🔴',reason:'Inverse ETF — designed to lose value over time. Zero income. Consider rotating into JEPI or MPLX.'},{ticker:'SOXL',icon:'🟡',reason:'3x leveraged ETF — extremely volatile, decays over time. Best as a short-term trade.'},{ticker:'SGOL',icon:'🟡',reason:'Physical gold — zero income. Good inflation hedge but generates nothing.'},{ticker:'USO',icon:'🟡',reason:'Oil futures ETF — zero income, subject to contango decay. Consider VDE instead.'},{ticker:'USCI',icon:'🟡',reason:'Commodity index — zero income. Best viewed as a hedge.'},{ticker:'AMZN',icon:'⚪',reason:'No dividend — $0 contribution to passive income goal.'},{ticker:'DAL',icon:'⚪',reason:'Dividend suspended, not reinstated. Zero income.'},{ticker:'SNDK',icon:'⚪',reason:'Recently re-listed — no dividend yet.'},{ticker:'PSUS',icon:'⚪',reason:'Newly listed — no dividend yet.'}];
-function setStrat(m){stratMode=m;document.querySelectorAll('.strat-tab').forEach(t=>t.classList.remove('active'));document.getElementById('strat-'+m)?.classList.add('active');save();renderOptimizerComparison();renderRoadmap();}
-function renderOptimizer(){const inc=mIncome(),pv=pValue();document.getElementById('opt-cur-inc').textContent=f$(inc);document.getElementById('opt-cur-yld').textContent=pv>0?((inc*12/pv)*100).toFixed(2)+'% blended yield':'—';const tickers=new Set(S.holdings.map(h=>h.ticker));const active=FLAGS.filter(f=>tickers.has(f.ticker));document.getElementById('opt-flags').innerHTML=active.length?active.map(f=>`<div class="flag"><div class="flag-icon">${f.icon}</div><div class="flag-body"><span class="fticker">${f.ticker}</span><div class="reason">${f.reason}</div></div></div>`).join(''):'<div class="empty">No flags!</div>';document.querySelectorAll('.strat-tab').forEach(t=>t.classList.remove('active'));document.getElementById('strat-'+stratMode)?.classList.add('active');renderOptimizerComparison();renderRoadmap();}
-function renderOptimizerComparison(){const pv=pValue(),inc=mIncome(),strat=STRATS[stratMode],sugInc=(pv*strat.blendedYield/100)/12;document.getElementById('cmp-current').innerHTML=`<div class="cmp-row"><span class="label">Portfolio value</span><span class="val">${f$(pv)}</span></div><div class="cmp-row"><span class="label">Monthly income</span><span class="val cg">${f$(inc)}</span></div><div class="cmp-row"><span class="label">Blended yield</span><span class="val">${pv>0?((inc*12/pv)*100).toFixed(2)+'%':'—'}</span></div><div class="cmp-row"><span class="label">Zero-income assets</span><span class="val cc">${S.holdings.filter(h=>h.divYield===0).length}</span></div><div class="cmp-row"><span class="label">Groceries covered</span><span class="val">${Math.min(100,(inc/348*100)).toFixed(0)}%</span></div><div class="cmp-row"><span class="label">Utilities covered</span><span class="val">${Math.min(100,(inc/130*100)).toFixed(0)}%</span></div>`;document.getElementById('cmp-suggested').innerHTML=`<div class="cmp-row"><span class="label">Strategy</span><span class="val">${strat.name}</span></div><div class="cmp-row"><span class="label">Monthly income</span><span class="val cg">${f$(sugInc)} <span class="pill pg">+${f$(Math.max(0,sugInc-inc))}/mo</span></span></div><div class="cmp-row"><span class="label">Blended yield</span><span class="val cg">${strat.blendedYield}%</span></div>${strat.picks.map(p=>`<div class="cmp-row"><span class="label"><strong>${p.ticker}</strong> ${p.alloc}%</span><span class="val ca">${p.yield}% yield</span></div>`).join('')}<div class="cmp-row"><span class="label">Groceries covered</span><span class="val cg">${Math.min(100,(sugInc/348*100)).toFixed(0)}%</span></div><div class="cmp-row"><span class="label">Utilities covered</span><span class="val cg">${Math.min(100,(sugInc/130*100)).toFixed(0)}%</span></div>`;}
-function renderRoadmap(){const inc=mIncome(),pv=pValue(),strat=STRATS[stratMode],cashInc=(10000*strat.blendedYield/100)/12,newInc=inc+cashInc,newPv=pv+10000;const steps=[{title:`Deploy $10k into ${strat.picks.slice(0,3).map(p=>p.ticker).join(', ')}`,detail:`At ${strat.blendedYield}% yield adds ${f$(cashInc)}/mo`,delta:`+${f$(cashInc)}/mo`},{title:`New monthly income: ${f$(newInc)}`,detail:`Portfolio: ${f$(newPv)} · Groceries ${Math.min(100,(newInc/348*100)).toFixed(0)}% · Utilities ${Math.min(100,(newInc/130*100)).toFixed(0)}%`,delta:f$(newPv)},{title:'Cover groceries ($348/mo)',detail:newInc>=348?'Already covered!':'Need '+f$(Math.max(0,(348-newInc)*12/strat.blendedYield*100))+' more',delta:newInc>=348?'✅':'Keep building'},{title:'Cover utilities ($478/mo)',detail:newInc>=478?'Already covered!':'Need '+f$(Math.max(0,(478-newInc)*12/strat.blendedYield*100))+' more',delta:newInc>=478?'✅':'Keep building'},{title:'Final boss — full coverage ($1,761/mo)',detail:`Need ${f$(1761*12/strat.blendedYield*100)} total · Gap: ${f$(Math.max(0,(1761*12/strat.blendedYield*100)-newPv))}`,delta:'🏆'}];document.getElementById('opt-roadmap').innerHTML=steps.map((s,i)=>`<div class="roadmap-row"><div class="roadmap-num">${i+1}</div><div class="roadmap-body"><div class="rtitle">${s.title}</div><div class="rdetail">${s.detail}</div></div><div class="roadmap-delta">${s.delta}</div></div>`).join('');}
-function renderAlerts(){const list=document.getElementById('alert-list'),empty=document.getElementById('alert-empty');if(!S.alerts.length){list.innerHTML='';empty.style.display='';return;}empty.style.display='none';list.innerHTML=S.alerts.map(a=>{const h=S.holdings.find(h=>h.ticker===a.ticker);const triggered=h&&h.price&&(a.cond==='below'?h.price<=a.price:h.price>=a.price);return `<div class="ar"><div class="dot ${triggered?'dr':h&&h.price?'dg':'da'}"></div><div style="flex:1"><strong>${a.ticker}</strong> ${a.cond} <strong>$${a.price}</strong>${a.note?` <span style="color:var(--muted)">· ${a.note}</span>`:''}</div><span class="pill ${triggered?'pr':'pa'}">${triggered?'⚡ Triggered':'Watching'}</span><button class="btn-del" onclick="delA(${a.id})">✕</button></div>`;}).join('');}
+
+function getSorted(){
+  const a=[...S.holdings];
+  if(sortMode==='value') return a.sort((a,b)=>hVal(b)-hVal(a));
+  if(sortMode==='income') return a.sort((a,b)=>hInc(b)-hInc(a));
+  if(sortMode==='yield') return a.sort((a,b)=>b.divYield-a.divYield);
+  if(sortMode==='gain') return a.sort((a,b)=>hGain(b)-hGain(a));
+  if(sortMode==='ticker') return a.sort((a,b)=>a.ticker.localeCompare(b.ticker));
+  return a;
+}
+function setSort(m){
+  sortMode=m;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  document.getElementById('chip-'+m)?.classList.add('active');
+  save();renderPortfolio();
+}
+
+function renderDash(){
+  const inc=mIncome(),exp=tExp(),pv=pValue(),cv=cov();
+  const circ=2*Math.PI*45;
+  setTimeout(()=>{document.getElementById('ring-arc').style.strokeDashoffset=(circ-(cv/100)*circ).toFixed(1);},80);
+  document.getElementById('d-cov').textContent=cv.toFixed(1)+'%';
+  document.getElementById('d-inc').textContent=f$(inc);
+  document.getElementById('d-exp').textContent=f$(exp,0);
+  const gap=exp-inc;
+  const gel=document.getElementById('d-gap');
+  gel.textContent=gap>0?f$(gap):'Fully covered!';
+  gel.className='sv '+(gap<=0?'cg':'cc');
+  document.getElementById('d-pv').textContent=f$(pv);
+  document.getElementById('d-yld').textContent=pv>0?((inc*12/pv)*100).toFixed(2)+'%':'0%';
+  const groceries=S.expenses.find(e=>e.name.toLowerCase().includes('gro'))?.amount||348;
+  const utils=(S.expenses.find(e=>e.name.toLowerCase().includes('elec'))?.amount||0)+(S.expenses.find(e=>e.name.toLowerCase().includes('gas'))?.amount||0);
+  const rent=S.expenses.find(e=>e.name.toLowerCase().includes('rent'))?.amount||1283;
+  const milestones=[
+    {name:'Groceries',target:groceries,boss:false},
+    {name:'Utilities',target:utils,boss:false},
+    {name:'Rent',target:rent,boss:true},
+  ];
+  let nextMs=null;
+  document.getElementById('ms-row').innerHTML=milestones.map(m=>{
+    const pct=Math.min(100,(inc/m.target)*100),done=pct>=100;
+    if(!done&&!nextMs)nextMs=m.name;
+    return `<div class="ms${done?' done':''}${m.boss?' boss':''}">
+      <div class="ms-lbl">${done?'✓ Covered':m.boss?'Final boss 🏆':'In progress'}</div>
+      <div class="ms-name">${m.name}</div>
+      <div class="bar-bg"><div class="bar-fill${m.boss?' boss':''}" style="width:${pct.toFixed(1)}%"></div></div>
+      <div class="ms-num">${f$(inc)} / ${f$(m.target,0)}/mo · ${pct.toFixed(0)}%</div>
+    </div>`;
+  }).join('');
+  document.getElementById('d-next').textContent=nextMs||'All covered 🎉';
+  const triggered=S.alerts.filter(a=>{
+    const h=S.holdings.find(h=>h.ticker===a.ticker);
+    return h&&h.price&&(a.cond==='below'?h.price<=a.price:h.price>=a.price);
+  });
+  document.getElementById('d-al').innerHTML=triggered.length?
+    `<div class="sh"><span class="st" style="color:var(--coral)">⚡ Alerts triggered</span></div>
+     <div class="card">${triggered.map(a=>`<div class="ar"><div class="dot dr"></div><strong>${a.ticker}</strong> is ${a.cond} $${a.price}${a.note?' — '+a.note:''}</div>`).join('')}</div>`:'';
+}
+
+function renderPortfolio(){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  document.getElementById('chip-'+sortMode)?.classList.add('active');
+  const pv=pValue();
+  document.getElementById('h-cnt').textContent=S.holdings.length;
+  document.getElementById('h-tot').textContent=f$(pv);
+  const body=document.getElementById('h-body'),empty=document.getElementById('h-empty');
+  if(!S.holdings.length){body.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  const sorted=getSorted();
+  const maxInc=Math.max(...sorted.map(hInc),0.01);
+  body.innerHTML=sorted.map((h,i)=>{
+    const val=hVal(h),ann=hInc(h),gain=h.price?hGain(h):null;
+    const rc=i===0?'r1':i===1?'r2':i===2?'r3':'';
+    const bw=Math.round((ann/maxInc)*42);
+    return `<tr>
+      <td><span class="rank ${rc}">${i+1}</span></td>
+      <td><span class="tkr editable" onclick="editF(${h.id},'ticker',this)">${h.ticker}</span></td>
+      <td><span class="nc editable" onclick="editF(${h.id},'name',this)">${h.name||'—'}</span></td>
+      <td><span class="editable" onclick="editF(${h.id},'shares',this)">${h.shares.toFixed(4)}</span></td>
+      <td><span class="editable" onclick="editF(${h.id},'avgCost',this)">${f$(h.avgCost)}</span></td>
+      <td>${h.price?f$(h.price):`<span class="editable nd" onclick="editF(${h.id},'price',this)">— enter</span>`}</td>
+      <td><strong>${f$(val)}</strong></td>
+      <td>${gain!==null?`<span class="pill ${gain>=0?'pg':'pr'}">${gain>=0?'+':''}${gain.toFixed(1)}%</span>`:'<span class="nd">—</span>'}</td>
+      <td><span class="editable" onclick="editF(${h.id},'divYield',this)">${h.divYield}%</span></td>
+      <td>${ann>0?`<span class="cg">${f$(ann)}</span><span class="ib"><span class="if" style="width:${bw}px"></span></span>`:'<span class="nd">—</span>'}</td>
+      <td><button class="btn-del" onclick="delH(${h.id})">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function editF(id,field,el){
+  if(el.querySelector('input'))return;
+  const h=S.holdings.find(h=>h.id===id);
+  const cur=field==='divYield'?h.divYield:field==='shares'?h.shares:field==='avgCost'?h.avgCost:field==='price'?(h.price||''):(h[field]||'');
+  const inp=document.createElement('input');
+  inp.className='ei';inp.value=String(cur).replace(/^\$/,'');
+  inp.style.width=Math.max(70,el.offsetWidth+18)+'px';
+  el.innerHTML='';el.appendChild(inp);inp.focus();inp.select();
+  const commit=()=>{
+    const v=inp.value.trim();
+    if(field==='shares')h.shares=parseFloat(v)||h.shares;
+    else if(field==='avgCost')h.avgCost=parseFloat(v)||h.avgCost;
+    else if(field==='divYield')h.divYield=parseFloat(v)||0;
+    else if(field==='price')h.price=parseFloat(v)||null;
+    else h[field]=v||h[field];
+    save();renderPortfolio();renderDash();
+  };
+  inp.addEventListener('blur',commit);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();inp.blur();}if(e.key==='Escape')renderPortfolio();});
+}
+
+async function fetchPrice(tk){
+  try {
+    const r=await fetch(`https://financialmodelingprep.com/api/v3/quote-short/${tk}?apikey=${API_KEY}`);
+    if(!r.ok)return null;
+    const d=await r.json();
+    if(d&&d[0]&&d[0].price>0)return d[0].price;
+  } catch(e){}
+  return null;
+}
+
+async function refreshPrices(){const status=document.getElementById('pstatus'),bar=document.getElementById('price-bar');status.style.display='';const tickers=[...new Set(S.holdings.map(h=>h.ticker))];let fetched=0,failed=[];for(let i=0;i<tickers.length;i++){const tk=tickers[i];bar.style.width=((i/tickers.length)*100)+'%';status.textContent='Fetching '+tk+'... ('+( i+1)+'/'+tickers.length+')';const p=await fetchPrice(tk);if(p){S.holdings.filter(h=>h.ticker===tk).forEach(h=>h.price=p);fetched++;}else failed.push(tk);}bar.style.width='100%';setTimeout(function(){bar.style.width='0';},1200);save();renderPortfolio();renderDash();const t=new Date().toLocaleTimeString();if(fetched>0){status.innerHTML='Updated '+fetched+' prices at '+t+(failed.length?' | Could not fetch: '+failed.join(', '):'');}else{status.innerHTML='Could not fetch prices. Check your internet connection.';}}
+
+function renderExpenses(){
+  const list=document.getElementById('exp-list'),empty=document.getElementById('exp-empty');
+  const total=tExp();
+  document.getElementById('exp-tot').textContent=f$(total,0);
+  if(!S.expenses.length){list.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  list.innerHTML=S.expenses.map(e=>`
+    <div class="er">
+      <span style="font-size:16px;width:26px;text-align:center;flex-shrink:0">${e.icon||'💰'}</span>
+      <span style="flex:1;font-weight:600" class="editable" onclick="editExp(${e.id},'name',this)">${e.name}</span>
+      <div class="ebb"><div class="ebf" style="width:${total?(e.amount/total*100):0}%"></div></div>
+      <span class="editable" onclick="editExp(${e.id},'amount',this)" style="min-width:72px;text-align:right;font-weight:700">${f$(e.amount,0)}/mo</span>
+      <button class="btn-del" onclick="delE(${e.id})">✕</button>
+    </div>`).join('');
+}
+function editExp(id,field,el){
+  if(el.querySelector('input'))return;
+  const e=S.expenses.find(e=>e.id===id);
+  const inp=document.createElement('input');inp.className='ei';
+  inp.value=field==='amount'?e.amount:e.name;
+  inp.style.width=Math.max(90,el.offsetWidth+18)+'px';
+  el.innerHTML='';el.appendChild(inp);inp.focus();inp.select();
+  const commit=()=>{
+    if(field==='amount')e.amount=parseFloat(inp.value)||e.amount;
+    else e.name=inp.value.trim()||e.name;
+    save();renderExpenses();renderDash();
+  };
+  inp.addEventListener('blur',commit);
+  inp.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();inp.blur();}if(ev.key==='Escape')renderExpenses();});
+}
+
+const STRATS={
+  aggressive:{name:'Aggressive income',picks:[
+    {ticker:'JEPI',alloc:25,yield:8.17},{ticker:'MPLX',alloc:20,yield:7.57},
+    {ticker:'DHT',alloc:10,yield:9.4},{ticker:'GLNG',alloc:10,yield:2.02},
+    {ticker:'VDE',alloc:10,yield:2.47},{ticker:'MRK',alloc:10,yield:3.0},
+    {ticker:'JNJ',alloc:8,yield:2.35},{ticker:'SCHD',alloc:7,yield:3.8},
+  ],blendedYield:5.9},
+  balanced:{name:'Balanced',picks:[
+    {ticker:'SCHD',alloc:20,yield:3.8},{ticker:'JEPI',alloc:15,yield:8.17},
+    {ticker:'VTI',alloc:15,yield:1.3},{ticker:'MPLX',alloc:12,yield:7.57},
+    {ticker:'JNJ',alloc:10,yield:2.35},{ticker:'MSFT',alloc:10,yield:0.98},
+    {ticker:'VDE',alloc:8,yield:2.47},{ticker:'MRK',alloc:10,yield:3.0},
+  ],blendedYield:3.8},
+  conservative:{name:'Conservative',picks:[
+    {ticker:'SCHD',alloc:30,yield:3.8},{ticker:'JNJ',alloc:15,yield:2.35},
+    {ticker:'VTI',alloc:15,yield:1.3},{ticker:'MRK',alloc:12,yield:3.0},
+    {ticker:'JPM',alloc:10,yield:1.81},{ticker:'MSFT',alloc:10,yield:0.98},
+    {ticker:'VDE',alloc:8,yield:2.47},
+  ],blendedYield:2.4}
+};
+
+const FLAGS=[
+  {ticker:'SRTY',icon:'🔴',reason:'Inverse ETF — designed to lose value over time in rising markets. Zero income. Consider rotating into JEPI or MPLX.'},
+  {ticker:'SOXL',icon:'🟡',reason:'3x leveraged ETF — extremely volatile, decays over time. Best as a short-term trade, not a long-term hold.'},
+  {ticker:'SGOL',icon:'🟡',reason:'Physical gold — zero income. Good inflation hedge but generates nothing. Consider trimming and redeploying.'},
+  {ticker:'USO',icon:'🟡',reason:'Oil futures ETF — zero income, subject to contango decay. Consider VDE for energy exposure with a real dividend.'},
+  {ticker:'USCI',icon:'🟡',reason:'Commodity index — zero income. Best viewed as a hedge, not an income asset.'},
+  {ticker:'AMZN',icon:'⚪',reason:'Amazon pays no dividend — contributes $0 to your passive income goal. Keep for growth if you want.'},
+  {ticker:'DAL',icon:'⚪',reason:'Delta suspended its dividend and has not reinstated it. Zero income contribution.'},
+  {ticker:'SNDK',icon:'⚪',reason:'Sandisk is recently re-listed — no dividend established yet.'},
+  {ticker:'PSUS',icon:'⚪',reason:'Pershing Square USA — newly listed, no dividend established yet.'},
+];
+
+function setStrat(m){
+  stratMode=m;
+  document.querySelectorAll('.strat-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('strat-'+m)?.classList.add('active');
+  save();renderOptimizerComparison();renderRoadmap();
+}
+
+function renderOptimizer(){
+  const inc=mIncome(),pv=pValue();
+  document.getElementById('opt-cur-inc').textContent=f$(inc);
+  document.getElementById('opt-cur-yld').textContent=pv>0?((inc*12/pv)*100).toFixed(2)+'% blended yield':'—';
+  const tickers=new Set(S.holdings.map(h=>h.ticker));
+  const active=FLAGS.filter(f=>tickers.has(f.ticker));
+  document.getElementById('opt-flags').innerHTML=active.length
+    ?active.map(f=>`<div class="flag"><div class="flag-icon">${f.icon}</div><div class="flag-body"><span class="fticker">${f.ticker}</span><div class="reason">${f.reason}</div></div></div>`).join('')
+    :'<div class="empty">No flags — looking good!</div>';
+  document.querySelectorAll('.strat-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('strat-'+stratMode)?.classList.add('active');
+  renderOptimizerComparison();renderRoadmap();
+}
+
+function renderOptimizerComparison(){
+  const pv=pValue(),inc=mIncome();
+  const strat=STRATS[stratMode];
+  const sugInc=(pv*strat.blendedYield/100)/12;
+  document.getElementById('cmp-current').innerHTML=`
+    <div class="cmp-row"><span class="label">Portfolio value</span><span class="val">${f$(pv)}</span></div>
+    <div class="cmp-row"><span class="label">Monthly income</span><span class="val cg">${f$(inc)}</span></div>
+    <div class="cmp-row"><span class="label">Blended yield</span><span class="val">${pv>0?((inc*12/pv)*100).toFixed(2)+'%':'—'}</span></div>
+    <div class="cmp-row"><span class="label">Zero-income assets</span><span class="val cc">${S.holdings.filter(h=>h.divYield===0).length}</span></div>
+    <div class="cmp-row"><span class="label">Groceries covered</span><span class="val">${Math.min(100,(inc/348*100)).toFixed(0)}%</span></div>
+    <div class="cmp-row"><span class="label">Utilities covered</span><span class="val">${Math.min(100,(inc/130*100)).toFixed(0)}%</span></div>`;
+  document.getElementById('cmp-suggested').innerHTML=`
+    <div class="cmp-row"><span class="label">Strategy</span><span class="val">${strat.name}</span></div>
+    <div class="cmp-row"><span class="label">Monthly income</span><span class="val cg">${f$(sugInc)} <span class="pill pg">+${f$(Math.max(0,sugInc-inc))}/mo</span></span></div>
+    <div class="cmp-row"><span class="label">Blended yield</span><span class="val cg">${strat.blendedYield}%</span></div>
+    ${strat.picks.map(p=>`<div class="cmp-row"><span class="label"><strong>${p.ticker}</strong> ${p.alloc}%</span><span class="val ca">${p.yield}% yield</span></div>`).join('')}
+    <div class="cmp-row"><span class="label">Groceries covered</span><span class="val cg">${Math.min(100,(sugInc/348*100)).toFixed(0)}%</span></div>
+    <div class="cmp-row"><span class="label">Utilities covered</span><span class="val cg">${Math.min(100,(sugInc/130*100)).toFixed(0)}%</span></div>`;
+}
+
+function renderRoadmap(){
+  const inc=mIncome(),pv=pValue(),strat=STRATS[stratMode];
+  const cashInc=(10000*strat.blendedYield/100)/12;
+  const newInc=inc+cashInc,newPv=pv+10000;
+  const steps=[
+    {title:`Deploy $10k into ${strat.picks.slice(0,3).map(p=>p.ticker).join(', ')}`,detail:`At ${strat.blendedYield}% yield adds ${f$(cashInc)}/mo`,delta:`+${f$(cashInc)}/mo`},
+    {title:`New monthly income: ${f$(newInc)}`,detail:`Portfolio value: ${f$(newPv)} · Groceries ${Math.min(100,(newInc/348*100)).toFixed(0)}% · Utilities ${Math.min(100,(newInc/130*100)).toFixed(0)}%`,delta:f$(newPv)},
+    {title:'Cover groceries ($348/mo)',detail:newInc>=348?'Already covered after deployment!':'Need '+f$(Math.max(0,(348-newInc)*12/strat.blendedYield*100))+' more at '+strat.blendedYield+'% yield',delta:newInc>=348?'✅ Done':'Keep building'},
+    {title:'Cover utilities too ($478/mo)',detail:newInc>=478?'Already covered!':'Need '+f$(Math.max(0,(478-newInc)*12/strat.blendedYield*100))+' more invested',delta:newInc>=478?'✅ Done':'Keep building'},
+    {title:'Final boss — full coverage ($1,761/mo)',detail:`Need ${f$(1761*12/strat.blendedYield*100)} total at ${strat.blendedYield}% · Gap: ${f$(Math.max(0,(1761*12/strat.blendedYield*100)-newPv))}`,delta:'🏆'},
+  ];
+  document.getElementById('opt-roadmap').innerHTML=steps.map((s,i)=>`
+    <div class="roadmap-row">
+      <div class="roadmap-num">${i+1}</div>
+      <div class="roadmap-body"><div class="rtitle">${s.title}</div><div class="rdetail">${s.detail}</div></div>
+      <div class="roadmap-delta">${s.delta}</div>
+    </div>`).join('');
+}
+
+function renderAlerts(){
+  const list=document.getElementById('alert-list'),empty=document.getElementById('alert-empty');
+  if(!S.alerts.length){list.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  list.innerHTML=S.alerts.map(a=>{
+    const h=S.holdings.find(h=>h.ticker===a.ticker);
+    const triggered=h&&h.price&&(a.cond==='below'?h.price<=a.price:h.price>=a.price);
+    return `<div class="ar">
+      <div class="dot ${triggered?'dr':h&&h.price?'dg':'da'}"></div>
+      <div style="flex:1"><strong>${a.ticker}</strong> ${a.cond} <strong>$${a.price}</strong>${a.note?` <span style="color:var(--muted)">· ${a.note}</span>`:''}</div>
+      <span class="pill ${triggered?'pr':'pa'}">${triggered?'⚡ Triggered':'Watching'}</span>
+      <button class="btn-del" onclick="delA(${a.id})">✕</button>
+    </div>`;
+  }).join('');
+}
+
 function delH(id){S.holdings=S.holdings.filter(h=>h.id!==id);save();renderPortfolio();renderDash();}
 function delE(id){S.expenses=S.expenses.filter(e=>e.id!==id);save();renderExpenses();renderDash();}
 function delA(id){S.alerts=S.alerts.filter(a=>a.id!==id);save();renderAlerts();}
+
 let modalType=null;
 const ICONS={'groceries':'🛒','rent':'🏠','electricity':'⚡','gas':'🔥','water':'💧','internet':'📶','phone':'📱','insurance':'🛡️','subscriptions':'📺','transport':'🚗','other':'💰'};
-function openModal(type){modalType=type;document.getElementById('modal').style.display='flex';document.getElementById('modal-title').textContent=type==='holding'?'Add holding':type==='expense'?'Add expense':'Add alert';const b=document.getElementById('modal-body');if(type==='holding'){b.innerHTML=`<div class="field"><label>Ticker</label><input id="f0" placeholder="e.g. SCHD" style="text-transform:uppercase" autocomplete="off"></div><div class="field"><label>Name</label><input id="f1" placeholder="e.g. Schwab Dividend ETF"></div><div class="field"><label>Shares</label><input id="f2" type="number" step="0.000001"></div><div class="field"><label>Avg cost ($)</label><input id="f3" type="number" step="0.01"></div><div class="field"><label>Dividend yield (%)</label><input id="f4" type="number" step="0.01" placeholder="0.00"></div>`;}else if(type==='expense'){b.innerHTML=`<div class="field"><label>Name</label><input id="f0" placeholder="e.g. Rent"></div><div class="field"><label>Monthly amount ($)</label><input id="f1" type="number"></div><div class="field"><label>Icon</label><select id="f2">${Object.entries(ICONS).map(([k,v])=>`<option value="${v}">${v} ${k}</option>`).join('')}</select></div>`;}else{const opts=S.holdings.map(h=>`<option value="${h.ticker}">${h.ticker} — ${h.name||''}</option>`).join('');b.innerHTML=`<div class="field"><label>Holding</label><select id="f0">${opts}</select></div><div class="field"><label>Alert when</label><select id="f1"><option value="below">Price drops below</option><option value="above">Price rises above</option></select></div><div class="field"><label>Target price ($)</label><input id="f2" type="number" step="0.01"></div><div class="field"><label>Planned move</label><input id="f3" placeholder="e.g. Buy 10 more shares"></div>`;}setTimeout(()=>{const fi=document.getElementById('f0');if(fi&&fi.tagName==='INPUT')fi.focus();},60);}
+function openModal(type){
+  modalType=type;
+  document.getElementById('modal').style.display='flex';
+  document.getElementById('modal-title').textContent=type==='holding'?'Add holding':type==='expense'?'Add expense':'Add alert';
+  const b=document.getElementById('modal-body');
+  if(type==='holding'){
+    b.innerHTML=`
+      <div class="field"><label>Ticker</label><input id="f0" placeholder="e.g. SCHD" style="text-transform:uppercase" autocomplete="off"></div>
+      <div class="field"><label>Name</label><input id="f1" placeholder="e.g. Schwab Dividend ETF"></div>
+      <div class="field"><label>Shares</label><input id="f2" type="number" step="0.000001"></div>
+      <div class="field"><label>Avg cost per share ($)</label><input id="f3" type="number" step="0.01"></div>
+      <div class="field"><label>Dividend yield (%)</label><input id="f4" type="number" step="0.01" placeholder="0.00"></div>`;
+  } else if(type==='expense'){
+    b.innerHTML=`
+      <div class="field"><label>Name</label><input id="f0" placeholder="e.g. Rent"></div>
+      <div class="field"><label>Monthly amount ($)</label><input id="f1" type="number"></div>
+      <div class="field"><label>Icon</label><select id="f2">${Object.entries(ICONS).map(([k,v])=>`<option value="${v}">${v} ${k}</option>`).join('')}</select></div>`;
+  } else {
+    const opts=S.holdings.map(h=>`<option value="${h.ticker}">${h.ticker} — ${h.name||''}</option>`).join('');
+    b.innerHTML=`
+      <div class="field"><label>Holding</label><select id="f0">${opts}</select></div>
+      <div class="field"><label>Alert when</label><select id="f1"><option value="below">Price drops below</option><option value="above">Price rises above</option></select></div>
+      <div class="field"><label>Target price ($)</label><input id="f2" type="number" step="0.01"></div>
+      <div class="field"><label>Planned move</label><input id="f3" placeholder="e.g. Buy 10 more shares"></div>`;
+  }
+  setTimeout(()=>{const fi=document.getElementById('f0');if(fi&&fi.tagName==='INPUT')fi.focus();},60);
+}
 function closeModal(){document.getElementById('modal').style.display='none';modalType=null;}
-function submitModal(){if(modalType==='holding'){const ticker=(document.getElementById('f0').value||'').toUpperCase().trim(),name=document.getElementById('f1').value.trim(),shares=parseFloat(document.getElementById('f2').value),cost=parseFloat(document.getElementById('f3').value),yld=parseFloat(document.getElementById('f4').value)||0;if(!ticker||isNaN(shares)||isNaN(cost))return;S.holdings.push({id:S.nextId++,ticker,name,shares,avgCost:cost,price:null,divYield:yld});save();closeModal();setTab('portfolio');}else if(modalType==='expense'){const name=document.getElementById('f0').value.trim(),amount=parseFloat(document.getElementById('f1').value),icon=document.getElementById('f2').value;if(!name||isNaN(amount))return;S.expenses.push({id:S.nextId++,name,amount,icon});save();closeModal();setTab('expenses');}else{const ticker=document.getElementById('f0').value,cond=document.getElementById('f1').value,price=parseFloat(document.getElementById('f2').value),note=document.getElementById('f3').value.trim();if(!ticker||isNaN(price))return;S.alerts.push({id:S.nextId++,ticker,cond,price,note});save();closeModal();setTab('alerts');}}
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&modalType&&document.activeElement.tagName!=='TEXTAREA')submitModal();if(e.key==='Escape')closeModal();});
+function submitModal(){
+  if(modalType==='holding'){
+    const ticker=(document.getElementById('f0').value||'').toUpperCase().trim();
+    const name=document.getElementById('f1').value.trim();
+    const shares=parseFloat(document.getElementById('f2').value);
+    const cost=parseFloat(document.getElementById('f3').value);
+    const yld=parseFloat(document.getElementById('f4').value)||0;
+    if(!ticker||isNaN(shares)||isNaN(cost))return;
+    S.holdings.push({id:S.nextId++,ticker,name,shares,avgCost:cost,price:null,divYield:yld});
+    save();closeModal();setTab('portfolio');
+  } else if(modalType==='expense'){
+    const name=document.getElementById('f0').value.trim();
+    const amount=parseFloat(document.getElementById('f1').value);
+    const icon=document.getElementById('f2').value;
+    if(!name||isNaN(amount))return;
+    S.expenses.push({id:S.nextId++,name,amount,icon});
+    save();closeModal();setTab('expenses');
+  } else {
+    const ticker=document.getElementById('f0').value;
+    const cond=document.getElementById('f1').value;
+    const price=parseFloat(document.getElementById('f2').value);
+    const note=document.getElementById('f3').value.trim();
+    if(!ticker||isNaN(price))return;
+    S.alerts.push({id:S.nextId++,ticker,cond,price,note});
+    save();closeModal();setTab('alerts');
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&modalType&&document.activeElement.tagName!=='TEXTAREA')submitModal();
+  if(e.key==='Escape')closeModal();
+});
+
 renderDash();
 setTimeout(refreshPrices,1000);
 </script>
